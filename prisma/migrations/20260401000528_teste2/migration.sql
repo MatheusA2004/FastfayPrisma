@@ -1,11 +1,4 @@
-/*
-  Warnings:
 
-  - You are about to drop the column `phones` on the `contacts` table. All the data in the column will be lost.
-  - Added the required column `phone` to the `contacts` table without a default value. This is not possible if the table is not empty.
-
-*/
--- RedefineTables
 PRAGMA defer_foreign_keys=ON;
 PRAGMA foreign_keys=OFF;
 CREATE TABLE "new_contacts" (

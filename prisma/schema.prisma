@@ -5,12 +5,11 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  // output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
-  // url = env("DATABASE_URL")
 }
 
 model Role{
@@ -19,7 +18,7 @@ model Role{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map ("roles")
+  @@map("roles")
 
 }
 
@@ -31,7 +30,7 @@ model User {
   updatedAt DateTime @updatedAt
   contacts Contacts[]
 
-  @@map ("users")
+  @@map("users")
 }
 
 model Contacts {
@@ -39,9 +38,8 @@ model Contacts {
   name String
   email String @unique
   phone String
+  user User @relation(fields: [userId], references: [id])
   userId String
 
-  user User @relation(fields: [userId], references: [id])
-
-  @@map ("contacts")
+  @@map("contacts")
 }

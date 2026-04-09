@@ -1,5 +1,10 @@
 import { PrismaClient } from '@prisma/client'
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
+const adapter = new PrismaBetterSqlite3({
+  url: process.env.DATABASE_URL!,
+})
 
-// O código do database será referenciado via const prisma
-export const prisma = new PrismaClient()
+export const prisma = new PrismaClient({
+  adapter,
+})
