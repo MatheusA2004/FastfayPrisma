@@ -34,5 +34,35 @@ export class ContactUseCase{
         });
 
         return result;
-    } 
+    }
+    
+     async listAllContacts(userEmail: string): Promise<Contact[]> {
+        const user = await this.userRepository.findbyEmail(userEmail);
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const contacts = await this.contactRepository.findAllContacts(user.id);
+
+        return contacts;
+    }
+
+    async updateContact({ id, name, email, phone }: Contact): Promise<Contact> {
+        const data = {
+            id,
+            name,
+            email,
+            phone
+        };
+        return {} as Contact; 
+    }
+
+    async delete(id: string): Promise<boolean> {
+        const result = await this.contactRepository.delete(id);
+        if (!result) {
+            throw new Error('Failed to delete contact');
+        }           
+        return true;
+    }
 }

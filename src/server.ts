@@ -2,10 +2,13 @@ import 'dotenv/config';
 import fastify from "fastify";
 import type {FastifyInstance} from "fastify";
 import { userRoutes } from "./routers/user.routes.js";
+import { contactRoutes } from './routers/contact.routes.js';
 
 const app: FastifyInstance = fastify({ logger: true });
 
 app.register(userRoutes, { prefix: '/users' });
+
+app.register(contactRoutes, { prefix: '/contacts' });
 
 app.listen({ port: 3000 }, (err, address) => {
   if (err) {

@@ -27,4 +27,28 @@ export class ContactRepositoryPrisma implements ContactRepository {
         return result || null;
     }
 
+    async findAllContacts(userId: string): Promise<Contact[]> {
+        const result = await prisma.contacts.findMany({
+            where: {
+                userId,
+            },
+        });
+        return result;
+    }   
+
+    async updateContact({ id, name, email, phone }: Contact): Promise<Contact> {   
+        const result = await prisma.contacts.update({
+            where: { id },
+            data: { name, email, phone },
+        });
+        return result;
+    }
+
+    async delete(id: string): Promise<boolean> {
+        const result = await prisma.contacts.delete({
+            where: { id },
+        });
+        return result ? true : false;
+    }  
+
 }

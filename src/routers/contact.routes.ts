@@ -32,6 +32,34 @@ export async function contactRoutes(fastify: FastifyInstance) {
     });
 
     fastify.get('/', async (request, reply) => {
-        return reply.send({ message: 'Contact route is active' });
+        const emailUser = request.headers['email'] as string;
+      try {     
+        const data = await contactUseCase.listAllContacts(emailUser);
+        return reply.send(data);
+      } catch (error) {
+        reply.send(error);
+      }
     });
+
+    fastify.put<{ Body: ContactCreate, Params: { id: string } }>('/:id', async (request, reply) => {
+        const { id } = request.params as { id: string };
+        const { name, email, phone } = request.body;
+        const userEmail = request.headers['email'] as string;
+        try {
+            const data = await contactUseCase.updateContact({ id, name, email, phone });
+            return reply.send(data);
+        } catch (error) {
+            reply.send(error);
+        }   
+    });
+
+    fastify.delete('/:id', async (request, reply) => {
+       try {
+            const { id } = request.params as { id: string };
+            const result = await contactUseCase.delete(id);
+            return reply.send(result);
+            } catch (error) {
+                reply.send(error);
+            } 
+    }); 
 }
