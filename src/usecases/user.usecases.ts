@@ -16,4 +16,8 @@ export class UserUseCase {
         const result = await this.userRepository.create({ name, email });
         return result;
     }
+
+    async listAll(): Promise<User[]> {
+        return this.userRepository.findAll();
+    }
 }
