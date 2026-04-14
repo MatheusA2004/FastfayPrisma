@@ -1,4 +1,8 @@
 -- CreateTable
+CREATE DATABASE fastify_db;
+
+USE fastify_db;
+
 CREATE TABLE `roles` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
